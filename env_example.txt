@@ -1,0 +1,16 @@
+# Essential API Credentials for Testing
+# Get these from https://my.telegram.org/apps
+API_ID=26189122
+API_HASH=cba9c53a7cfef4cb09aac9f14b8f836e
+PHONE=+8801859379559
+
+# Your 2 test groups (must be negative numbers)
+SOURCE_GROUP_IDS=-1001234567890,-1001234567891
+SOURCE_GROUP_NAMES="Test Group 1,Test Group 2"
+
+# Target group where messages will be forwarded
+TARGET_GROUP_ID=-1001234567892
+
+# Basic message delay (seconds)
+MESSAGE_DELAY=2
+

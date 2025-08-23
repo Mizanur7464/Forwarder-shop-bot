@@ -277,4 +277,30 @@ class MessageProcessor:
         if delivery_message.lower() not in text.lower():
             text += f"\n\n{delivery_message}"
         
+        # Add contact information for orders
+        text = self._append_contact_info(text)
+        
+        return text
+
+    def _append_contact_info(self, text: str) -> str:
+        """Append contact information for orders"""
+        try:
+            from config import CONTACT_INFO
+            contact_info = CONTACT_INFO
+        except ImportError:
+            # Fallback if config not available
+            contact_info = {
+                'telegram_link': 'https://t.me/BFSshopuk',
+                'contact_text': 'For orders message here',
+                'shop_name': 'BFS',
+                'auto_add_contact': True
+            }
+        
+        if not contact_info.get('auto_add_contact', True):
+            return text
+        
+        # Check if contact info is already present
+        if contact_info['contact_text'].lower() not in text.lower():
+            text += f"\n\n{contact_info['contact_text']}\n{contact_info['telegram_link']}"
+        
         return text

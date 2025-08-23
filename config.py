@@ -105,4 +105,12 @@ KEYWORD_REPLACEMENTS = {
     'cheap': 'affordable',
 }
 
+# Contact information for orders
+CONTACT_INFO = {
+    'telegram_link': os.getenv('TELEGRAM_LINK', 'https://t.me/BFSshopuk'),
+    'contact_text': os.getenv('CONTACT_TEXT', 'For orders message here'),
+    'shop_name': os.getenv('SHOP_NAME', 'BFS'),
+    'auto_add_contact': os.getenv('AUTO_ADD_CONTACT', 'true').lower() == 'true'
+}
+
 

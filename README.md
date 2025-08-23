@@ -1,153 +1,78 @@
 # Telegram Message Forwarder Bot
 
-## 🎯 Buyer's Requirements (Implemented)
+A powerful Telegram bot that forwards messages from source groups to target groups with automatic modifications including pricing updates, keyword replacements, and contact information.
 
-This bot was built according to specific buyer requirements:
+## Features
 
-### 📱 Core Functionality
-- **Copies posts** from a source group to target group
-- **Images remain exactly the same** as source
-- **Auto-detects new posts** in source group
+- **Multi-group monitoring**: Monitor multiple source groups simultaneously
+- **Automatic pricing logic**: 
+  - Watches: Original price + £105
+  - Non-watches: Original price + 65% + £5 delivery fee
+- **Keyword replacements**: Automatically replace keywords (e.g., "AAA" → "Premium")
+- **Media support**: Handles photos, videos, documents, and audio files
+- **Album support**: Properly forwards media albums
+- **Delivery message**: Automatically adds delivery information
+- **Contact information**: Automatically adds order contact details
+- **Group-specific settings**: Customize settings for each source group
 
-### 💰 Pricing Logic
-- **Watch Products:** Original price + flat £105 (delivery included)
-- **Non-Watch Products:** Original price + 65% + £5 (delivery included)
+## New Feature: Contact Information
 
-### 🔍 Watch Detection
-Automatically identifies watches using keywords:
-- `watch`, `watchs`, `watches`
-- `timepiece`, `chronograph`
-- `analog`, `digital watch`
-- `luxury watch`, `sports watch`
-- Brand names: `casio`, `rolex`, `omega`, `seiko`, `citizen`
+The bot now automatically adds contact information to every forwarded message, making it easy for users to place orders:
 
-### 📝 Description Enhancement
-- **Keeps original description**
-- **Appends:** "Quick Free delivery 3/4 days"
+- **Contact text**: "For orders message here"
+- **Telegram link**: Direct link to your shop (e.g., https://t.me/BFSshopuk)
+- **Configurable**: Can be enabled/disabled via environment variables
 
-## 🚀 Features
+## Configuration
 
-### ✅ Implemented
-1. **Smart Watch Detection** - Automatically identifies watch products
-2. **Dynamic Pricing** - Applies different pricing rules for watches vs non-watches
-3. **Delivery Message** - Automatically adds delivery information
-4. **Price Conversion** - Supports multiple currency formats (£, $, ৳)
-5. **Media Forwarding** - Images and files forwarded unchanged
-6. **Real-time Processing** - Monitors source group for new messages
+Create a `.env` file with the following variables:
 
-### 📊 Pricing Examples
+```env
+# Telegram API credentials
+API_ID=your_telegram_api_id
+API_HASH=your_telegram_api_hash
+PHONE=your_phone_number
 
-#### Watch Product
-- **Original:** £50
-- **New Price:** £155 (£50 + £105)
-- **Includes:** Delivery
+# Group IDs
+SOURCE_GROUP_IDS=group_id1,group_id2,group_id3
+SOURCE_GROUP_NAMES="Group Name 1,Group Name 2,Group Name 3"
+TARGET_GROUP_ID=target_group_id
 
-#### Non-Watch Product
-- **Original:** £100
-- **New Price:** £170 (£100 × 1.65 + £5)
-- **Includes:** Delivery
+# Message settings
+MESSAGE_DELAY=2
 
-## 🛠️ Technical Details
+# Group-specific delays (optional)
+GROUP_1_DELAY=2
+GROUP_2_DELAY=3
+GROUP_3_DELAY=2
 
-### Dependencies
-- `telethon` - Telegram client library
-- `python-dotenv` - Environment variable management
-- `asyncio` - Asynchronous programming
-
-### Configuration
-- **API Credentials:** Telegram API ID, Hash, Phone
-- **Group IDs:** Source and target group identifiers
-- **Pricing Rules:** Configurable multipliers and fees
-- **Keywords:** Customizable watch detection terms
-
-### File Structure
-```
-├── bot.py                 # Main bot logic
-├── message_processor.py   # Message processing & pricing
-├── config.py             # Configuration & settings
-├── requirements.txt      # Python dependencies
-└── test_buyer_requirements.py  # Test suite
+# Contact information for orders
+TELEGRAM_LINK=https://t.me/BFSshopuk
+CONTACT_TEXT=For orders message here
+SHOP_NAME=BFS
+AUTO_ADD_CONTACT=true
 ```
 
-## 🧪 Testing
+## Installation
 
-Run the test suite to verify all features:
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Configure your `.env` file
+4. Run the bot: `python bot.py`
 
-```bash
-python test_buyer_requirements.py
-```
+## Usage
 
-This will test:
-- Watch detection accuracy
-- Pricing calculations
-- Delivery message appending
-- Full message processing
+The bot will:
+1. Monitor specified source groups
+2. Process incoming messages with pricing logic
+3. Add delivery information
+4. Add contact information for orders
+5. Forward modified messages to target group
 
-## 🔧 Setup
+## Hosting on AWS EC2
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+See the detailed hosting guide in the project documentation for AWS EC2 deployment instructions.
 
-2. **Configure environment:**
-   ```bash
-   cp env_example.txt .env
-   # Edit .env with your Telegram API credentials
-   ```
+## License
 
-3. **Run the bot:**
-   ```bash
-   python bot.py
-   ```
-
-## 📋 Demo Requirements Met
-
-✅ **3-5 sample posts** including:
-- ✅ **Watch product** (Casio G-Shock example)
-- ✅ **Non-watch product** (iPhone example)
-- ✅ **Price calculations** working correctly
-- ✅ **Delivery message** automatically added
-- ✅ **Image forwarding** preserved
-
-## 💡 Customization
-
-### Adding More Watch Keywords
-Edit `config.py`:
-```python
-WATCH_KEYWORDS = [
-    'watch', 'watchs', 'watches',
-    # Add your custom keywords here
-    'luxury timepiece', 'premium watch'
-]
-```
-
-### Modifying Pricing Logic
-Edit `config.py`:
-```python
-PRICING_LOGIC = {
-    'watch_multiplier': 105,        # Change flat fee
-    'non_watch_multiplier': 1.65,   # Change percentage
-    'non_watch_delivery_fee': 5,    # Change delivery fee
-}
-```
-
-### Changing Delivery Message
-Edit `config.py`:
-```python
-DELIVERY_MESSAGE = "Your custom delivery message here"
-```
-
-## 🔒 Security
-
-- API credentials stored in environment variables
-- No hardcoded sensitive information
-- Secure Telegram authentication via Telethon
-
-## 📞 Support
-
-For technical support or customization requests, please refer to the original project specifications or contact the development team.
-
----
-
-**Status:** ✅ **All Buyer Requirements Implemented and Tested**
+This project is licensed under the MIT License.

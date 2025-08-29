@@ -1,78 +1,88 @@
-# Telegram Message Forwarder Bot
+# Message Forwarder Bot
 
-A powerful Telegram bot that forwards messages from source groups to target groups with automatic modifications including pricing updates, keyword replacements, and contact information.
+A Telegram bot that forwards messages from multiple source groups to a target group with automatic modifications including pricing updates, keyword replacements, and source group identification.
 
 ## Features
 
-- **Multi-group monitoring**: Monitor multiple source groups simultaneously
-- **Automatic pricing logic**: 
+- **Multi-Source Group Support**: Monitor multiple source groups simultaneously
+- **Source Group Identification**: Each forwarded message shows a letter prefix indicating its source group
+- **Automatic Pricing Logic**: 
   - Watches: Original price + £105
   - Non-watches: Original price + 65% + £5 delivery fee
-- **Keyword replacements**: Automatically replace keywords (e.g., "AAA" → "Premium")
-- **Media support**: Handles photos, videos, documents, and audio files
-- **Album support**: Properly forwards media albums
-- **Delivery message**: Automatically adds delivery information
-- **Contact information**: Automatically adds order contact details
-- **Group-specific settings**: Customize settings for each source group
+- **Keyword Replacements**: Automatic text modifications
+- **Media Support**: Handles photos, videos, documents, and audio files
+- **Album Support**: Properly forwards media albums
+- **Group-Specific Settings**: Custom delays and settings per source group
 
-## New Feature: Contact Information
+## Source Group Letter Mapping
 
-The bot now automatically adds contact information to every forwarded message, making it easy for users to place orders:
+The bot automatically adds a letter prefix to each forwarded message to identify its source:
 
-- **Contact text**: "For orders message here"
-- **Telegram link**: Direct link to your shop (e.g., https://t.me/BFSshopuk)
-- **Configurable**: Can be enabled/disabled via environment variables
+- **S** - Sam's group
+- **R** - Raaf's group  
+- **M** - Mr Sunny's group
+- **A** - Amid's group
+- **J** - Joyce's group
+
+Example: `[S] Product description` indicates the message came from Sam's group.
+
+## Setup
+
+1. **Install dependencies**:
+   ```bash
+   pip install telethon python-dotenv
+   ```
+
+2. **Configure environment**:
+   - Copy `env_example.txt` to `.env`
+   - Fill in your Telegram API credentials
+   - Add your source group IDs and target group ID
+
+3. **Update source group letters**:
+   - Edit `config.py`
+   - Update `SOURCE_GROUP_LETTERS` with your actual group IDs
+
+4. **Run the bot**:
+   ```bash
+   python bot.py
+   ```
 
 ## Configuration
 
-Create a `.env` file with the following variables:
+### Environment Variables
 
-```env
-# Telegram API credentials
-API_ID=your_telegram_api_id
-API_HASH=your_telegram_api_hash
-PHONE=your_phone_number
+- `SOURCE_GROUP_IDS`: Comma-separated list of source group IDs
+- `TARGET_GROUP_ID`: ID of the target group for forwarding
+- `MESSAGE_DELAY`: Delay between forwarded messages (seconds)
+- `GROUP_X_DELAY`: Individual group delays (optional)
 
-# Group IDs
-SOURCE_GROUP_IDS=group_id1,group_id2,group_id3
-SOURCE_GROUP_NAMES="Group Name 1,Group Name 2,Group Name 3"
-TARGET_GROUP_ID=target_group_id
+### Source Group Settings
 
-# Message settings
-MESSAGE_DELAY=2
-
-# Group-specific delays (optional)
-GROUP_1_DELAY=2
-GROUP_2_DELAY=3
-GROUP_3_DELAY=2
-
-# Contact information for orders
-TELEGRAM_LINK=https://t.me/BFSshopuk
-CONTACT_TEXT=For orders message here
-SHOP_NAME=BFS
-AUTO_ADD_CONTACT=true
-```
-
-## Installation
-
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Configure your `.env` file
-4. Run the bot: `python bot.py`
+Each source group can have custom:
+- Message delays
+- Watch keywords
+- Pricing logic
+- Delivery messages
 
 ## Usage
 
-The bot will:
-1. Monitor specified source groups
-2. Process incoming messages with pricing logic
-3. Add delivery information
-4. Add contact information for orders
-5. Forward modified messages to target group
+1. The bot automatically monitors all configured source groups
+2. When a message is received, it:
+   - Adds source group letter identification
+   - Applies pricing logic
+   - Modifies keywords
+   - Forwards to target group
+3. All messages show `[LETTER]` prefix for easy identification
 
-## Hosting on AWS EC2
+## Example Output
 
-See the detailed hosting guide in the project documentation for AWS EC2 deployment instructions.
+```
+[S] Casio Watch - £150
+Quick Free delivery 3/4 days
+For orders message here
+https://t.me/BFSshopuk
+```
 
-## License
+## Support
 
-This project is licensed under the MIT License.
+For issues or questions, please check the configuration and ensure all group IDs are correct.

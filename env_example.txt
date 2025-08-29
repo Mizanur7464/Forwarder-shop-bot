@@ -1,24 +1,43 @@
-# Telegram API credentials
-API_ID=your_telegram_api_id
-API_HASH=your_telegram_api_hash
-PHONE=your_phone_number
+# Telegram Bot Configuration
+# Copy this file to .env and fill in your actual values
 
-# Group IDs
-SOURCE_GROUP_IDS=group_id1,group_id2,group_id3
-SOURCE_GROUP_NAMES="Group Name 1,Group Name 2,Group Name 3"
-TARGET_GROUP_ID=target_group_id
+# Telethon API credentials
+API_ID=your_api_id_here
+API_HASH=your_api_hash_here
+PHONE=your_phone_number_here
 
-# Message settings
+# Source Group IDs (comma-separated for multiple groups)
+SOURCE_GROUP_IDS=123456789,987654321,111222333,444555666,777888999
+
+# Source Group Names (comma-separated, optional)
+SOURCE_GROUP_NAMES=Sam's Group,Raaf's Group,Mr Sunny's Group,Amid's Group,Joyce's Group
+
+# Target Group ID (where messages will be forwarded)
+TARGET_GROUP_ID=your_target_group_id_here
+
+# Message delay in seconds
 MESSAGE_DELAY=2
 
 # Group-specific delays (optional)
 GROUP_1_DELAY=2
 GROUP_2_DELAY=3
 GROUP_3_DELAY=2
+GROUP_4_DELAY=2
+GROUP_5_DELAY=2
 
-# Contact information for orders
+# Contact information
 TELEGRAM_LINK=https://t.me/BFSshopuk
 CONTACT_TEXT=For orders message here
 SHOP_NAME=BFS
 AUTO_ADD_CONTACT=true
+
+# IMPORTANT: Update SOURCE_GROUP_LETTERS in config.py with your actual group IDs
+# Example:
+# SOURCE_GROUP_LETTERS = {
+#     123456789: 'S',  # Sam
+#     987654321: 'R',  # Raaf
+#     111222333: 'M',  # Mr Sunny
+#     444555666: 'A',  # Amid
+#     777888999: 'J',  # Joyce
+# }
 

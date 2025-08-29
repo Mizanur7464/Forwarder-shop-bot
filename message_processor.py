@@ -33,6 +33,11 @@ class MessageProcessor:
             # Extract content
             content = self.extract_content(message_data)
             
+            # Add source group letter identification
+            if source_group_id:
+                content = self._add_source_identification(
+                    content, source_group_id)
+            
             # Modify text with group-specific settings
             if content['text']:
                 content['text'] = self.modify_text(content['text'], source_group_id)
@@ -133,6 +138,60 @@ class MessageProcessor:
             content['media_type'] = 'audio'
         
         return content
+    
+    def _add_source_identification(self, content: Dict[str, Any], 
+                                 source_group_id: int) -> Dict[str, Any]:
+        """Add source group letter identification to message content"""
+        try:
+            from config import SOURCE_GROUP_SETTINGS
+            group_settings = SOURCE_GROUP_SETTINGS.get(source_group_id, {})
+            group_letter = group_settings.get('letter', f'G{source_group_id}')
+            
+            # Add letter prefix to text and caption
+            if content['text']:
+                content['text'] = f"[{group_letter}] {content['text']}"
+            if content['caption']:
+                content['caption'] = f"[{group_letter}] {content['caption']}"
+                
+            return content
+        except Exception as e:
+            logger.error(f"Error adding source identification: {e}")
+            return content
+        """Add source group letter identification to message content"""
+        try:
+            from config import SOURCE_GROUP_SETTINGS
+            group_settings = SOURCE_GROUP_SETTINGS.get(source_group_id, {})
+            group_letter = group_settings.get('letter', f'G{source_group_id}')
+            
+            # Add letter prefix to text and caption
+            if content['text']:
+                content['text'] = f"[{group_letter}] {content['text']}"
+            if content['caption']:
+                content['caption'] = f"[{group_letter}] {content['caption']}"
+                
+            return content
+        except Exception as e:
+            logger.error(f"Error adding source identification: {e}")
+            return content
+    
+    def _add_source_identification(self, content: Dict[str, Any], 
+                                 source_group_id: int) -> Dict[str, Any]:
+        """Add source group letter identification to message content"""
+        try:
+            from config import SOURCE_GROUP_SETTINGS
+            group_settings = SOURCE_GROUP_SETTINGS.get(source_group_id, {})
+            group_letter = group_settings.get('letter', f'G{source_group_id}')
+            
+            # Add letter prefix to text and caption
+            if content['text']:
+                content['text'] = f"[{group_letter}] {content['text']}"
+            if content['caption']:
+                content['caption'] = f"[{group_letter}] {content['caption']}"
+                
+            return content
+        except Exception as e:
+            logger.error(f"Error adding source identification: {e}")
+            return content
     
     def modify_text(self, text: str, source_group_id: int = None) -> str:
         """Apply all text modifications with group-specific settings"""

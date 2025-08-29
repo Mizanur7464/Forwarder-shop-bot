@@ -64,6 +64,15 @@ if not SOURCE_GROUP_NAMES:
         for i in range(len(SOURCE_GROUP_IDS))
     ]
 
+# Source group letter mapping for identification
+SOURCE_GROUP_LETTERS: dict[int, str] = {
+    -1001879591244: 'S',  # Sam's group
+    -1001629586121: 'A',  # Amid's group  
+    -1002854862865: 'M',  # Mr Sunny's group
+    -1001778841365: 'R',  # Raaf's group
+    -1001623053408: 'J',  # Joyce's group
+}
+
 # Source group specific settings
 SOURCE_GROUP_SETTINGS = {}
 for i, group_id in enumerate(SOURCE_GROUP_IDS):
@@ -77,13 +86,22 @@ for i, group_id in enumerate(SOURCE_GROUP_IDS):
     group_delay_key = f'GROUP_{i+1}_DELAY'
     group_delay = int(os.getenv(group_delay_key, MESSAGE_DELAY))
     
+    # Get group letter for identification
+    group_letter = SOURCE_GROUP_LETTERS.get(group_id, f"G{i+1}")
+    
+    # Custom delivery message for specific groups
+    custom_delivery_message = DELIVERY_MESSAGE
+    if group_id == -1001623053408:  # Joyce's group
+        custom_delivery_message = "2/4 weeks delivery"
+    
     SOURCE_GROUP_SETTINGS[group_id] = {
         'name': group_name,
         'enabled': True,
         'message_delay': group_delay,
         'watch_keywords': WATCH_KEYWORDS.copy(),
         'pricing_logic': PRICING_LOGIC.copy(),
-        'delivery_message': DELIVERY_MESSAGE
+        'delivery_message': custom_delivery_message,
+        'letter': group_letter  # Add letter identification
     }
 
 # Price update rules (keeping existing for backward compatibility)
@@ -112,5 +130,21 @@ CONTACT_INFO = {
     'shop_name': os.getenv('SHOP_NAME', 'BFS'),
     'auto_add_contact': os.getenv('AUTO_ADD_CONTACT', 'true').lower() == 'true'
 }
+
+# 🚀 Quick Setup Guide:
+# 1. উপরের commented lines গুলো uncomment করুন (# remove করুন)
+# 2. 123456789 এর জায়গায় আপনার actual Telegram group ID দিন
+# 3. Letters ('S', 'R', 'M', 'A', 'J') ঠিক রাখুন
+# 4. .env ফাইলে SOURCE_GROUP_IDS আপডেট করুন
+# 5. Bot restart করুন
+#
+# 📋 Example Configuration (আপনার actual IDs দিয়ে replace করুন):
+# SOURCE_GROUP_LETTERS = {
+#     555666777: 'S',  # Sam's group (আপনার actual group ID)
+#     888999000: 'R',  # Raaf's group
+#     111222333: 'M',  # Mr Sunny's group
+#     444555666: 'A',  # Amid's group
+#     777888999: 'J',  # Joyce's group
+# }
 
 

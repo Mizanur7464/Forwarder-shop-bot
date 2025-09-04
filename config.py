@@ -65,6 +65,7 @@ if not SOURCE_GROUP_NAMES:
     ]
 
 # Source group letter mapping for identification
+# Update these with your actual group IDs from .env file
 SOURCE_GROUP_LETTERS: dict[int, str] = {
     -1001879591244: 'S',  # Sam's group
     -1001629586121: 'A',  # Amid's group  
@@ -86,13 +87,14 @@ for i, group_id in enumerate(SOURCE_GROUP_IDS):
     group_delay_key = f'GROUP_{i+1}_DELAY'
     group_delay = int(os.getenv(group_delay_key, MESSAGE_DELAY))
     
-    # Get group letter for identification
+    # Get group letter for identification (use default if not in SOURCE_GROUP_LETTERS)
     group_letter = SOURCE_GROUP_LETTERS.get(group_id, f"G{i+1}")
     
     # Custom delivery message for specific groups
     custom_delivery_message = DELIVERY_MESSAGE
-    if group_id == -1001623053408:  # Joyce's group
-        custom_delivery_message = "2/4 weeks delivery"
+    # Note: Update this condition with your actual Joyce's group ID
+    # if group_id == YOUR_JOYCE_GROUP_ID:  # Joyce's group
+    #     custom_delivery_message = "2/4 weeks delivery"
     
     SOURCE_GROUP_SETTINGS[group_id] = {
         'name': group_name,

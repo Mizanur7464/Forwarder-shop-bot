@@ -47,9 +47,13 @@ class MessageForwarderBot:
                     group_name = SOURCE_GROUP_SETTINGS[group_id]['name']
                     logger.info(f"Setting up listener for: {group_name} ({group_id})")
                     
-                    @self.client.on(events.NewMessage(chats=group_id))
-                    async def handle_new_message(event, source_group_id=group_id):
-                        await self.handle_source_message(event.message, source_group_id)
+                    # Create a closure to capture the current group_id
+                    async def create_handler(current_group_id):
+                        @self.client.on(events.NewMessage(chats=current_group_id))
+                        async def handle_new_message(event):
+                            await self.handle_source_message(event.message, current_group_id)
+                    
+                    await create_handler(group_id)
             else:
                 # Single source group (backward compatibility)
                 group_id = SOURCE_GROUP_IDS[0]

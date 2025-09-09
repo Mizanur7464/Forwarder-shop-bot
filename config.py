@@ -92,9 +92,9 @@ for i, group_id in enumerate(SOURCE_GROUP_IDS):
     
     # Custom delivery message for specific groups
     custom_delivery_message = DELIVERY_MESSAGE
-    # Note: Update this condition with your actual Joyce's group ID
-    # if group_id == YOUR_JOYCE_GROUP_ID:  # Joyce's group
-    #     custom_delivery_message = "2/4 weeks delivery"
+    # Joyce's group gets different delivery time
+    if group_id == -1001623053408:  # Joyce's group
+        custom_delivery_message = "2/4 weeks delivery"
     
     SOURCE_GROUP_SETTINGS[group_id] = {
         'name': group_name,

@@ -71,7 +71,7 @@ SOURCE_GROUP_LETTERS: dict[int, str] = {
     -1001629586121: 'A',  # Amid's group  
     -1002854862865: 'M',  # Mr Sunny's group
     -1001778841365: 'R',  # Raaf's group
-    -1001623053408: 'J',  # Joyce's group
+    -1003095265760: 'J',  # Joyce's group
 }
 
 # Source group specific settings
@@ -93,7 +93,7 @@ for i, group_id in enumerate(SOURCE_GROUP_IDS):
     # Custom delivery message for specific groups
     custom_delivery_message = DELIVERY_MESSAGE
     # Joyce's group gets different delivery time
-    if group_id == -1001623053408:  # Joyce's group
+    if group_id == -1003095265760:  # Joyce's group
         custom_delivery_message = "2/4 weeks delivery"
     
     SOURCE_GROUP_SETTINGS[group_id] = {
